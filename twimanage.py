@@ -2,16 +2,20 @@ import tweepy
 
 consumer_key = "QS9Vk6mSmKTri97Oz4yNuY3sH"
 consumer_secret = "szyiAlz9d0i5PmGEEEkukeyReDYHrFEgaMW2kTkytaqI1W2lH0"
-access_token = "1216406244358901760-m4oWrplywn1qx35Tr9dggLhQMq0ABZ"
-access_token_secret = "Srgnz57Kwda6gQie9iJFb3VuDVYSmj75shqwHsBPhQygu"
+callback= "oob"
 
-auth = tweepy.OAuth1UserHandler(
-    consumer_key, consumer_secret, access_token, access_token_secret
-)
+oauth1_user_handler = tweepy.OAuth1UserHandler(
+    consumer_key, consumer_secret,
+    callback)
 
-api = tweepy.API(auth)
+print(oauth1_user_handler.get_authorization_url(access_type='write'))
+
+verifier = input("Input PIN: ")
+access_token, access_token_secret = oauth1_user_handler.get_access_token(verifier)
+
+api = tweepy.API(oauth1_user_handler)
 
 print(api.verify_credentials().screen_name)
 
-#tweet = 'Hello, world!'
-#api.update_status(status=tweet)
+text = "Hello, world!"
+api.update_status(status = text)
