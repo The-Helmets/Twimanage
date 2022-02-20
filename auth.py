@@ -19,7 +19,7 @@ def auth():
         f.write("access_token_secret: {}\n".format(access_token_secret))
 
     api = tweepy.API(oauth1_user_handler)
+    user_name = api.verify_credentials().screen_name
+    print("Signed in as: ", user_name)
 
-    print("Signed in as: ", api.verify_credentials().screen_name)
-
-    return api
+    return api, user_name

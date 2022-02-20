@@ -19,12 +19,13 @@ try:
     
 except:
     if input("Credentials not found. Do you want to sign in using 3 PIN Authentication? (y/n): ") == "y":
-        api = auth()
+        api, user_name = auth()
         print("3 PIN Authentication successful!")
     else:
         print("Authentication failed! Please check your credentials.yaml file.")
         exit()
 
+# Main menu
 while True:
     user_choice = (int(input("What would you like to do?\n1. New Tweet\n2. Delete Tweet(Needs Tweet ID)\n3. Quit\n>>>")))
     if user_choice == 1:
@@ -33,8 +34,7 @@ while True:
         print("Tweet sent!")
 
     elif user_choice == 2:
-        id = input("What is the ID of the tweet you want to delete? ")
-        del_tweet(id, api)
+        get_tweets(user_name, api)
         print("Tweet deleted!")
 
     elif user_choice == 3:
