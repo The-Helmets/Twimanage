@@ -14,7 +14,6 @@ def del_tweet(id, api):
         print("Unsuccessfull" , id)
 
 def get_tweets(username, api):
-        number_of_tweets=1000
         tweets = api.user_timeline(username)
         tmp=[] 
   
