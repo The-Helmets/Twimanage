@@ -8,17 +8,30 @@ def new_tweeet(text, api):
         print("Unsuccessfull ")
   
 
-def del_tweet(id, api):
-    try:
-        api.destroy_status(id)
-        print("Successfully deleted " , id)
-    except:
-        print("Unsuccessfull" , id)
+def del_tweet(api):
+    del_count = int(input("How many tweets would you like to delete? "))
+    with open("Data/grabbed_tweets.yaml", "r") as f:
+        tweets_id = yaml.safe_load(f)
+    tweets = list(tweets_id.keys())
+    for i in range(del_count):
+        tweet_index = tweets[i]
+        tweet_id = tweets_id[tweet_index]['id']
+        try:
+            api.destroy_status(tweet_id)
+            print("Deleted tweet with id: " + str(tweet_id))
+        except:
+            print("Unable to delete tweet with id: " + str(tweet_id))
 
 def get_tweets(user_id, api, count):
     count = int(input("How many tweets would you like to grab? "))
     for i in range(count):
-        tweets = api.user_timeline(screen_name = user_id, count = count, exclude_replies=True, include_rts = False)
+        try:
+            print("Fetching tweet " + str(i+1) + " of " + str(count))
+            tweets = api.user_timeline(screen_name = user_id, count = count, exclude_replies=True, include_rts = False)
+            print("Tweet fetched!")
+        except:
+            print("Unable to fetch tweets")
+
     
     grabbed_tweets = {}
     i = 1
