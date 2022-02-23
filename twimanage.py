@@ -30,7 +30,7 @@ except:
 
 # Main menu
 while True:
-    user_choice = (int(input("What would you like to do?\n1. New Tweet\n2. Get Tweet\n3. Quit\n>>>")))
+    user_choice = (int(input("What would you like to do?\n1. New Tweet\n2. Get Tweets\n3. Delete Tweets\n4. Quit\n>>>")))
     if user_choice == 1:
         tweet = input("What would you like to tweet? ")
         new_tweeet(tweet, api)
@@ -40,5 +40,8 @@ while True:
         get_tweets(user_name, api, count)
 
     elif user_choice == 3:
+        del_tweet(api)
+
+    elif user_choice == 4:
         print("Goodbye!")
         exit()
