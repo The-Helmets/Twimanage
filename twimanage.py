@@ -1,11 +1,10 @@
-from itertools import count
 import tweepy
 import yaml
 
 from auth import *
 from manage import *
 
-print("Welcome to Twimanage! This is a simple Twitter management tool.")
+print("\nWelcome to Twimanage! This is a simple Twitter management tool.")
 
 with open("credentials.yaml", "r") as f:
     credentials = yaml.safe_load(f)
@@ -17,31 +16,31 @@ try:
     api = tweepy.API(auth_1)
     user_name = api.verify_credentials().screen_name
     user_id = api.verify_credentials().id_str
-    print("Signed in as: ", user_name, " User ID: ", user_id)
+    print("\nSigned in as: ", user_name, " User ID: ", user_id)
     
 except:
-    if input("Credentials not found. Do you want to sign in us3ing 3 PIN Authentication? (y/n): ") == "y":
+    if input("\nCredentials not found. Do you want to sign in using PIN based Authentication? (y/n): ") == "y":
         api, user_name, user_id = auth()
-        print("3 PIN Authentication successful!")
+        print("\nPIN Based Authentication successful!")
         print(user_name)
     else:
-        print("Authentication failed! Please check your credentials.yaml file.")
+        print("\nAuthentication failed! Please check your credentials.yaml file.")
         exit()
 
 # Main menu
 while True:
-    user_choice = (int(input("What would you like to do?\n1. New Tweet\n2. Get Tweets\n3. Delete Tweets\n4. Quit\n>>>")))
+    user_choice = (int(input("\nWhat would you like to do?\n1. New Tweet\n2. Get Tweets\n3. Delete Tweets\n4. Quit\n\n>>>")))
     if user_choice == 1:
-        tweet = input("What would you like to tweet? ")
+        tweet = input("\nWhat would you like to tweet? ")
         new_tweeet(tweet, api)
         print("Tweet sent!")
 
     elif user_choice == 2:
-        get_tweets(user_name, api, count)
+        get_tweets(user_name, api)
 
     elif user_choice == 3:
         del_tweet(api)
 
     elif user_choice == 4:
-        print("Goodbye!")
+        print("\nGoodbye!")
         exit()

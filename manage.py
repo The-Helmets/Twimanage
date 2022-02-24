@@ -3,9 +3,9 @@ import yaml
 def new_tweeet(text, api):
     try:
         api.update_status(status=text)
-        print( "Successfully tweeted ")
+        print( "\nSuccessfully tweeted ")
     except:
-        print("Unsuccessfull ")
+        print("\nUnsuccessfull ")
   
 
 def del_tweet(api):
@@ -22,13 +22,13 @@ def del_tweet(api):
         except:
             print("Unable to delete tweet with id: " + str(tweet_id))
 
-def get_tweets(user_id, api, count):
+def get_tweets(user_id, api):
     count = int(input("How many tweets would you like to grab? "))
     for i in range(count):
         try:
-            print("Fetching tweet " + str(i+1) + " of " + str(count))
+            print("\nFetching tweet " + str(i+1) + " of " + str(count))
             tweets = api.user_timeline(screen_name = user_id, count = count, exclude_replies=True, include_rts = False)
-            print("Tweet fetched!")
+            print("Tweet fetched!\n")
         except:
             print("Unable to fetch tweets")
 
@@ -47,4 +47,4 @@ def get_tweets(user_id, api, count):
     with open("Data/grabbed_tweets.yaml", "w") as f:
         f.write(yaml.dump(grabbed_tweets, sort_keys=False, default_flow_style=False))
 
-    print("Tweets saved to Data/grabbed_tweets.yaml")
+    print("\nTweets saved to Data/grabbed_tweets.yaml")
